@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex justify-content-center align-items-center">
+        <a class="btn btn-sm btn-success me-1"
+        href="#">
+        <span class="small">Assets</span>
+        <br>
+        <span class="small">${{total_earnings|intcomma}}</span>
+    </a>
+        <a class="btn btn-sm btn-danger me-1"
+            href="#">
+            <span class="small">Debt</span>
+            <br>
+            <span class="small">$-{{total_lendings|intcomma}}</span>
+        </a>
+      
+        <a class="btn btn-sm btn-primary"
+            href="#">
+            <span class="small">Difference</span>
+            <br>
+            <span class="small">(${{difference|intcomma}})</span>
+        </a>
+    </div>
+    <hr>
+    <a href="{% url 'expense-create' %}">Add expense</a><br>
+    <a href="{% url 'income-create' %}">Add income</a>
+    <br>
+    <h2>Leading</h2>
+    <h3>Total: ${{total_lendings}}</h3>
+    {% for lending in lendings %}
+    {{lending.name}}
+    <hr>
+    {% endfor %}
+    <br>
+    <h2>Earning</h2>
+    <h3>Total: ${{total_earnings}}</h3>
+    {% for earning in earnings %}
+    {{earning.name}} (${{earning.balance}})
+    <hr>
+    {% endfor %}
+</div>
+{% endblock content %}
